@@ -1,14 +1,20 @@
 import { createContext } from "react";
 
-type IUser = {
-  name: string;
-  email: string;
-  token: string | null;
+export type IUser = {
+  username: string;
+  password: string;
+  token: string;
 };
+
+export type IAlbum = [{
+  id: string;
+  img: string;
+  album: string;
+}];
 
 type IUserContext = {
   user: IUser | null;
-  setUser: (userData: IUser) => void | React.Dispatch<React.SetStateAction<null>>;
+  setUser: (userData: IUser) => void;
 };
 
 const UserContext = createContext<IUserContext>({

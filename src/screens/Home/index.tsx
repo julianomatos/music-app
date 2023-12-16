@@ -1,44 +1,28 @@
-import { Flex, Heading, Text } from "native-base";
+import { Flex, Heading, Button } from "native-base";
 import { useContext, useState, useEffect } from "react";
-import UserContext from "../../context/user";
+import UserContext, { IAlbum } from "../../context/user";
 import { FlatList, Alert } from "react-native";
 import Card from "../../components/Card";
 import Selected from "../../components/Selected";
+import { getAlbums } from "../../services/albums";
+import { storage } from "../../../App";
 export default function Home() {
   const userData = useContext(UserContext);
   const [selectedAlbum, setSelectedAlbum] = useState("");
+  const [albums, setAlbums] = useState<IAlbum>();
 
-  const DATA = [
-    {
-      id: "1",
-      album: "Angra",
-      img: "https://m.media-amazon.com/images/I/51Yee8dkecL._UF1000,1000_QL80_.jpg",
-    },
-    {
-      id: "2",
-      album: "Legiao",
-      img: "https://www.vagalume.com.br/legiao-urbana/discografia/legiao-urbana.jpg",
-    },
-    {
-      id: "3",
-      album: "Iron maden",
-      img: "https://pbs.twimg.com/media/F9c7D_vX0AAkl7C?format=jpg&name=large",
-    },
-    {
-      id: "4",
-      album: "Guns",
-      img: "https://www12.senado.leg.br/radio/1/capitulo-rock/2020/01/31/guns-n2019-roses/guns_n_roses.jpg/@@images/24c8f793-0823-4756-b0e7-3c1f1b71fb1e.jpeg",
-    },
-  ];
-
+  const handleLogout = () => {
+    storage.clearAll()
+    
+  }
+ 
   useEffect(() => {
-    if (selectedAlbum == "Iron maden") {
-      Alert.alert("Parabéns!", "Voce selecionou um ótimo album!");
+    if (userData.user !== null){
+       getAlbums(userData.user?.token)
+      .then((response) => setAlbums(response.data))
+      .catch((e) => console.log("erro", e));
     }
-  }, [selectedAlbum]);
-
-  useEffect(() => {
-    console.log("chamou o useEffect com array vazio");
+   
   }, []);
 
   return (
@@ -50,10 +34,13 @@ export default function Home() {
       bg="primary.100"
     >
       <Heading color="secondary.100" fontSize="4xl">
-        Helcome back {userData.user?.name}
+        Wellcome back {userData.user?.username}
       </Heading>
+      <Button onPress={handleLogout} mt={4} colorScheme="danger">
+        Log Out
+      </Button>
       <FlatList
-        data={DATA}
+        data={albums}
         renderItem={({ item }) => (
           <Card
             key={item.id}
