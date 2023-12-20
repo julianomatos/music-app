@@ -4,13 +4,18 @@ import { useContext, useState } from "react";
 import Button from "../../components/Button";
 import UserContext from "../../context/user";
 import { login } from "../../services/auth";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Login() {
   const userData = useContext(UserContext);
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-
-  userData.user?.token
+  const navigation = useNavigation();
+  
+ 
+  if(userData.user != null){
+    navigation.navigate('Home');
+  }
 
   const handleLogin = () => {
     console.log("Username: " + username + " Password: " + password);
@@ -21,6 +26,7 @@ export default function Login() {
           password: password,
           token: response.data.token
         });
+        navigation.navigate('Home');
       })
 
       .catch(function (error) {

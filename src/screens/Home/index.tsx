@@ -1,28 +1,32 @@
 import { Flex, Heading, Button } from "native-base";
 import { useContext, useState, useEffect } from "react";
 import UserContext, { IAlbum } from "../../context/user";
-import { FlatList, Alert } from "react-native";
+import { FlatList } from "react-native";
 import Card from "../../components/Card";
 import Selected from "../../components/Selected";
 import { getAlbums } from "../../services/albums";
 import { storage } from "../../../App";
+import { useNavigation } from "@react-navigation/native";
+
 export default function Home() {
   const userData = useContext(UserContext);
   const [selectedAlbum, setSelectedAlbum] = useState("");
   const [albums, setAlbums] = useState<IAlbum>();
-
+  const navigation = useNavigation();
+  
   const handleLogout = () => {
-    storage.clearAll()
-    
+    console.log('Oi')
+    storage.clearAll();
+    navigation.navigate('Login');
   }
- 
+
   useEffect(() => {
-    if (userData.user !== null){
-       getAlbums(userData.user?.token)
-      .then((response) => setAlbums(response.data))
-      .catch((e) => console.log("erro", e));
+    if (userData.user !== null) {
+      getAlbums(userData.user?.token)
+        .then((response) => setAlbums(response.data))
+        .catch((e) => console.log("erro", e));
     }
-   
+
   }, []);
 
   return (

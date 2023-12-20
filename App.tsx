@@ -2,11 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import { NativeBaseProvider } from "native-base";
 import THEME from "./src/theme";
 import UserContext, { IUser } from "./src/context/user";
-import Wrapper from "./src/screens/Wrapper";
+import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { MMKV } from "react-native-mmkv";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MainStack from "./src/routes/MainStack";
+import Wrapper from "./src/screens/Wrapper";
 
 export const storage = new MMKV({
   id: "musicapp",
@@ -15,6 +18,9 @@ export const storage = new MMKV({
 export default function App() {
   //
   const [user, setUser] = useState<IUser | null>(null);
+  const Stack = createNativeStackNavigator();
+
+  const userData = useContext(UserContext)
 
   useEffect(() => {
     if (user != null) {
@@ -32,10 +38,11 @@ export default function App() {
   return (
     <NativeBaseProvider theme={THEME}>
       <UserContext.Provider value={{ user: user, setUser }}>
-        <StatusBar style="auto" />
         <NavigationContainer>
-          <Wrapper />
+          <MainStack />
+          {/* <Wrapper /> */}
         </NavigationContainer>
+        <StatusBar style="auto" />
       </UserContext.Provider>
     </NativeBaseProvider>
   );
