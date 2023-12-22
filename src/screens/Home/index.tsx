@@ -13,10 +13,11 @@ export default function Home() {
   const [selectedAlbum, setSelectedAlbum] = useState("");
   const [albums, setAlbums] = useState<IAlbum>();
   const navigation = useNavigation();
-  
+
   const handleLogout = () => {
-    console.log('Oi')
+    console.log(storage.getString("user"))
     storage.clearAll();
+    console.log(storage.getString("user"))
     navigation.navigate('Login');
   }
 
@@ -37,12 +38,12 @@ export default function Home() {
       alignItems="center"
       bg="primary.100"
     >
-      <Heading color="secondary.100" fontSize="4xl">
-        Wellcome back {userData.user?.username}
-      </Heading>
-      <Button onPress={handleLogout} mt={4} colorScheme="danger">
-        Log Out
-      </Button>
+      <Flex mb={5} justifyContent="space-between" alignItems="center" flexDirection="row">
+        <Heading color="secondary.100" fontSize="4xl">
+          Welcome back {userData.user?.username}
+        </Heading>
+
+      </Flex>
       <FlatList
         data={albums}
         renderItem={({ item }) => (
@@ -56,6 +57,9 @@ export default function Home() {
         keyExtractor={(item) => item.id}
         horizontal
       />
+      <Button onPress={handleLogout} colorScheme="danger" >
+        Log out
+      </Button>
       <Selected text={selectedAlbum} />
     </Flex>
   );

@@ -22,8 +22,8 @@ const AuthTabs = () => {
 const MainStack = () => {
   return (
     <Stack.Navigator>
-       <Stack.Screen name="AuthTabs" component={AuthTabs} /> 
-       <Stack.Screen name="Home" component={Home} />
+       <Stack.Screen name="AuthTabs" component={AuthTabs} options={{ title: 'Music App', headerShown: false }}/> 
+       <Stack.Screen name="Home" component={Home} options={{ title: 'Music App', headerShown: false  }}/>
     </Stack.Navigator>
   );
 };

@@ -5,15 +5,20 @@ import Button from "../../components/Button";
 import UserContext from "../../context/user";
 import { login } from "../../services/auth";
 import { useNavigation } from "@react-navigation/native";
+import { storage } from "../../../App";
 
 export default function Login() {
   const userData = useContext(UserContext);
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const navigation = useNavigation();
-  
- 
-  if(userData.user != null){
+
+  const clearFields = () => {
+    setUsername('')
+    setPassword('')
+  }
+
+  if (storage.getString("user") != undefined) {
     navigation.navigate('Home');
   }
 
@@ -26,38 +31,22 @@ export default function Login() {
           password: password,
           token: response.data.token
         });
+        clearFields()
         navigation.navigate('Home');
       })
 
       .catch(function (error) {
         console.error("error", error);
-        Alert.alert("Error", "usuário ou senha inválidos");
+        Alert.alert("Error", "Username or password is invalid.");
       });
-    // axios
-    //   .post("https://musicapi-w7kn.onrender.com/user/login", {
-    //     username: username,
-    //     password: password,
-    //   })
-    //   .then(function (response) {
-    //     userData.setUser({
-    //       name: "Gabriel",
-    //       email: "gabrielgs1408@gmail.com",
-    //       token: response.data.token
-    //     });
-    //     console.log(response.data.token)
-    //   })
 
-    //   .catch(function (error) {
-    //     console.error("error", error);
-    //     Alert.alert("Error", "usuário ou senha inválidos");
-    //   });
   };
 
   return (
     <Flex p={5} flex={1} justifyContent="center" alignItems="center">
-      <Heading>Tela de login</Heading>
-      <Input mt={2} value={username} onChangeText={setUsername} />
-      <Input mt={2} value={password} onChangeText={setPassword} />
+      <Heading>Login Screen</Heading>
+      <Input mt={2} value={username} onChangeText={setUsername} placeholder="Username" />
+      <Input mt={2} value={password} onChangeText={setPassword} placeholder="Password" />
       <Flex width="100%">
         <Button content="Sign in" handleClick={handleLogin} />
       </Flex>
