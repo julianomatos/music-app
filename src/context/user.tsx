@@ -12,6 +12,12 @@ export type IAlbum = [{
   album: string;
 }];
 
+export type IStories = [{
+  id: string;
+  img: string;
+  name: string;
+}];
+
 type IUserContext = {
   user: IUser | null;
   setUser: (userData: IUser) => void;

@@ -1,4 +1,4 @@
-import { Flex, Heading, Input } from "native-base";
+import { Flex, Heading, Input, Text } from "native-base";
 import { Alert } from "react-native";
 import { useContext, useState } from "react";
 import Button from "../../components/Button";
@@ -44,10 +44,11 @@ export default function Login() {
 
   return (
     <Flex p={5} flex={1} justifyContent="center" alignItems="center">
-      <Heading>Login Screen</Heading>
+      <Heading fontSize={24}>Welcome to MusicApp</Heading>
+      <Text mb={5} >Enter Your Username & Password</Text>
       <Input mt={2} value={username} onChangeText={setUsername} placeholder="Username" />
       <Input mt={2} value={password} onChangeText={setPassword} placeholder="Password" />
-      <Flex width="100%">
+      <Flex mt={5} width="100%">
         <Button content="Sign in" handleClick={handleLogin} />
       </Flex>
     </Flex>

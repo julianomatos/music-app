@@ -52,9 +52,9 @@ export default function Register() {
         }
     return (
         <Flex p={5} flex={1} justifyContent="center" alignItems="center">
-            <Heading>Registration Screen</Heading>
-            <Input mt={2} value={username} onChangeText={setUsername} placeholder="Username"/>
-            <Input mt={2} value={password} onChangeText={setPassword} placeholder="Password"/>
+            <Heading mb={10}>Create Account</Heading>
+            <Input mt={2} value={username} onChangeText={setUsername} placeholder="Create Username"/>
+            <Input mt={2} value={password} onChangeText={setPassword} placeholder="Create Password"/>
             <Input mt={2} value={password2} onChangeText={setPassword2} placeholder="Confirm Password"/>
             <Flex width="100%">
                 <Button content="Register" handleClick={handleRegister} />

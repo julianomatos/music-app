@@ -1,5 +1,6 @@
 {
   "expo": {
+    "icon": "./assets/images/music-app.jpg",
     "extra": {
       "eas": {
         "projectId": "6ee5fd80-f249-4b7f-9044-462ee414ca16"

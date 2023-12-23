@@ -1,17 +1,22 @@
-import { Flex, Heading, Button } from "native-base";
+import { Flex, Heading, Button, Text } from "native-base";
 import { useContext, useState, useEffect } from "react";
-import UserContext, { IAlbum } from "../../context/user";
+import UserContext, { IAlbum, IStories } from "../../context/user";
 import { FlatList } from "react-native";
 import Card from "../../components/Card";
 import Selected from "../../components/Selected";
 import { getAlbums } from "../../services/albums";
 import { storage } from "../../../App";
 import { useNavigation } from "@react-navigation/native";
+import { getStories } from "../../services/stories";
+import { TouchableWithoutFeedbackBase } from "react-native";
+import Storie from "../../components/Storie";
 
 export default function Home() {
   const userData = useContext(UserContext);
   const [selectedAlbum, setSelectedAlbum] = useState("");
   const [albums, setAlbums] = useState<IAlbum>();
+  const [stories, setStories] = useState<IStories>();
+
   const navigation = useNavigation();
 
   const handleLogout = () => {
@@ -26,6 +31,9 @@ export default function Home() {
       getAlbums(userData.user?.token)
         .then((response) => setAlbums(response.data))
         .catch((e) => console.log("erro", e));
+      getStories(userData.user?.token)
+        .then((response) => setStories(response.data))
+        .catch((e) => console.log("erro", e));
     }
 
   }, []);
@@ -34,16 +42,26 @@ export default function Home() {
     <Flex
       flex={1}
       p={5}
-      justifyContent="center"
-      alignItems="center"
       bg="primary.100"
     >
-      <Flex mb={5} justifyContent="space-between" alignItems="center" flexDirection="row">
-        <Heading color="secondary.100" fontSize="4xl">
-          Welcome back {userData.user?.username}
-        </Heading>
+      <Heading mb={10} color="secondary.100" fontSize={48}>
+        Welcome Back {userData.user?.username}
+      </Heading>
 
-      </Flex>
+      <Text fontSize={22} fontWeight={'bold'} color={'c'}>Story</Text>
+      <FlatList
+        data={stories}
+        renderItem={({ item }) => (
+          <Storie
+            key={item.id}
+            img={item.img}
+            name={item.name}
+          />
+        )}
+        keyExtractor={(item) => item.id}
+        horizontal
+      />
+      <Text mb={2} fontSize={22} fontWeight={'bold'} color={'light.50'}>Discover Pick ForYou</Text>
       <FlatList
         data={albums}
         renderItem={({ item }) => (
