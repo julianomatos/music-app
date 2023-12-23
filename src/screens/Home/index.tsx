@@ -48,7 +48,7 @@ export default function Home() {
         Welcome Back {userData.user?.username}
       </Heading>
 
-      <Text fontSize={22} fontWeight={'bold'} color={'c'}>Story</Text>
+      <Text fontSize={22} fontWeight={'bold'} color={'light.50'}>Story</Text>
       <FlatList
         data={stories}
         renderItem={({ item }) => (

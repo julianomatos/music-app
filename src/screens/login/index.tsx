@@ -43,11 +43,11 @@ export default function Login() {
   };
 
   return (
-    <Flex p={5} flex={1} justifyContent="center" alignItems="center">
-      <Heading fontSize={24}>Welcome to MusicApp</Heading>
-      <Text mb={5} >Enter Your Username & Password</Text>
-      <Input mt={2} value={username} onChangeText={setUsername} placeholder="Username" />
-      <Input mt={2} value={password} onChangeText={setPassword} placeholder="Password" />
+    <Flex p={5} flex={1} justifyContent="center" alignItems="center" bg="primary.100">
+      <Heading textAlign={'center'} color={'light.100'} fontSize={36} mb={10}>Welcome to MusicApp</Heading>
+      <Text fontSize={18} mb={5} color={'light.200'}>Enter Your Username & Password</Text>
+      <Input size="lg" variant="underlined" mt={5} color={'light.200'} value={username} onChangeText={setUsername} placeholder="Username" />
+      <Input size="lg" variant="underlined" mt={2} color={'light.200'} value={password} onChangeText={setPassword} placeholder="Password" />
       <Flex mt={5} width="100%">
         <Button content="Sign in" handleClick={handleLogin} />
       </Flex>

@@ -51,11 +51,11 @@ export default function Register() {
           });
         }
     return (
-        <Flex p={5} flex={1} justifyContent="center" alignItems="center">
-            <Heading mb={10}>Create Account</Heading>
-            <Input mt={2} value={username} onChangeText={setUsername} placeholder="Create Username"/>
-            <Input mt={2} value={password} onChangeText={setPassword} placeholder="Create Password"/>
-            <Input mt={2} value={password2} onChangeText={setPassword2} placeholder="Confirm Password"/>
+        <Flex p={5} flex={1} justifyContent="center" alignItems="center" bg="primary.100">
+            <Heading textAlign={'center'} color={'light.100'} fontSize={36} mb={10}>Create Account</Heading>
+            <Input size="lg" variant="underlined" mb={5} color={'light.200'} mt={2} value={username} onChangeText={setUsername} placeholder="Create Username"/>
+            <Input size="lg" variant="underlined" mb={5} color={'light.200'} mt={2} value={password} onChangeText={setPassword} placeholder="Create Password"/>
+            <Input size="lg" variant="underlined" mb={5} color={'light.200'} mt={2} value={password2} onChangeText={setPassword2} placeholder="Confirm Password"/>
             <Flex width="100%">
                 <Button content="Register" handleClick={handleRegister} />
             </Flex>

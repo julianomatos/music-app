@@ -1,4 +1,4 @@
-import { Button as NativeButton } from "native-base";
+import { Button as NativeButton, Text } from "native-base";
 
 interface Props {
   content: string;
@@ -8,12 +8,12 @@ interface Props {
 
 export default function Button({
   content,
-  variation = "primary",
+  variation = "light",
   handleClick,
 }: Props) {
   return (
     <NativeButton bg={`${variation}.100`} mt={3} onPress={handleClick}>
-      {content}
+       <Text fontSize={18} color="primary.100">{content}</Text>
     </NativeButton>
   );
 }
