@@ -8,7 +8,6 @@ import { getAlbums } from "../../services/albums";
 import { storage } from "../../../App";
 import { useNavigation } from "@react-navigation/native";
 import { getStories } from "../../services/stories";
-import { TouchableWithoutFeedbackBase } from "react-native";
 import Storie from "../../components/Storie";
 
 export default function Home() {
@@ -20,9 +19,7 @@ export default function Home() {
   const navigation = useNavigation();
 
   const handleLogout = () => {
-    console.log(storage.getString("user"))
     storage.clearAll();
-    console.log(storage.getString("user"))
     navigation.navigate('Login');
   }
 
@@ -75,7 +72,7 @@ export default function Home() {
         keyExtractor={(item) => item.id}
         horizontal
       />
-      <Button onPress={handleLogout} colorScheme="danger" >
+      <Button onPress={handleLogout} bg="secondary.100" >
         Log out
       </Button>
       <Selected text={selectedAlbum} />
